@@ -926,60 +926,61 @@ function FourthScreen({ navigation, savedOutfits, toggleSaveImage }) {
 function SavedOutfitsScreen({ navigation, savedOutfits }) {
   return (
     <LinearGradient colors={['#FAD0C4', '#FFD1FF']} style={{ flex: 1 }}>
-{/* Back Button */}
-<TouchableOpacity
-  onPress={() => navigation.goBack()}
-  style={{
-    position: 'absolute',
-    top: 50,
-    left: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    backgroundColor: '#fff',
-    borderRadius: 25,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-  }}
->
-  <Icon name="arrow-back" size={24} color="#735DEC" />
-  <Text style={{ marginLeft: 10, color: '#735DEC', fontSize: 18, fontWeight: 'bold' }}>
-    Back
-  </Text>
-</TouchableOpacity>
+      {/* Back Button */}
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={{
+          position: 'absolute',
+          top: 50,
+          left: 20,
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingVertical: 10,
+          paddingHorizontal: 15,
+          backgroundColor: '#fff',
+          borderRadius: 25,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.1,
+          shadowRadius: 6,
+          zIndex: 1, // Ensure it's on top of other elements
+        }}
+      >
+        <Icon name="arrow-back" size={24} color="#735DEC" />
+        <Text style={{ marginLeft: 10, color: '#735DEC', fontSize: 18, fontWeight: 'bold' }}>
+          Back
+        </Text>
+      </TouchableOpacity>
 
-{/* "Saved" Text */}
-<View
-  style={{
-    position: 'absolute',
-    top: 50,
-    right: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    backgroundColor: '#fff',
-    borderRadius: 25,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-  }}
->
-  <Icon name="heart-outline" size={24} color="#735DEC" />
-  <Text style={{ marginLeft: 10, color: '#735DEC', fontSize: 18, fontWeight: 'bold' }}>
-    Saved
-  </Text>
-</View>
-
+      {/* "Saved" Text */}
+      <View
+        style={{
+          position: 'absolute',
+          top: 50,
+          right: 20,
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingVertical: 10,
+          paddingHorizontal: 15,
+          backgroundColor: '#fff',
+          borderRadius: 25,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.1,
+          shadowRadius: 6,
+          zIndex: 1, // Ensure it's on top of other elements
+        }}
+      >
+        <Icon name="heart-outline" size={24} color="#735DEC" />
+        <Text style={{ marginLeft: 10, color: '#735DEC', fontSize: 18, fontWeight: 'bold' }}>
+          Saved
+        </Text>
+      </View>
 
       {/* Saved Outfits List */}
-      <View style={{ flex: 1, padding: 10 }}>
+      <View style={{ flex: 1, marginTop: 100, padding: 10 }}> {/* marginTop added for spacing */}
         {savedOutfits.length === 0 ? (
-          <Text style={{ textAlign: 'center', marginTop: 100, fontSize: 18, color: '#735DEC' }}>
+          <Text style={{ textAlign: 'center', fontSize: 18, color: '#735DEC' }}>
             No saved outfits
           </Text>
         ) : (
@@ -987,10 +988,12 @@ function SavedOutfitsScreen({ navigation, savedOutfits }) {
             {savedOutfits.map((outfit, index) => (
               <TouchableOpacity
                 key={index}
-                onPress={() => navigation.navigate('ImageDetailScreen', {
-                  imageUri: outfit.uri,
-                  tags: outfit.tags || [], // fallback to empty array
-                })}
+                onPress={() =>
+                  navigation.navigate('ImageDetailScreen', {
+                    imageUri: outfit.uri,
+                    tags: outfit.tags || [], // fallback to empty array
+                  })
+                }
               >
                 <Image
                   source={outfit.uri}
@@ -1005,6 +1008,7 @@ function SavedOutfitsScreen({ navigation, savedOutfits }) {
     </LinearGradient>
   );
 }
+
 
 function ImageDetailScreen({ route, toggleSaveImage, savedOutfits, navigation }) {
   const { imageUri, tags } = route.params;
